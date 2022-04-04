@@ -26,40 +26,56 @@ namespace Praktikum04_04
             int posisi;
             string[] konversiKeValue = new string[tBoxInput.Text.Length];
             labelOutput.Text = "";
-            // Menghitung selisih konversi
-            for (int j = 0; j < arrayhuruf.Length; j++)
-            {
-                if (tBoxHurufAwal.Text.ToLower()[0].CompareTo(arrayhuruf[j]) == 0)
-                {
-                    nilaiHurufAwal = j;
-                }
-                if (tBoxHurufKonversi.Text.ToLower()[0].CompareTo(arrayhuruf[j]) == 0)
-                {
-                    nilaiHurufKonversi = j;
-                }
-                jarakKonversi = nilaiHurufKonversi - nilaiHurufAwal;
-            }
 
-            // Konversi Huruf->Nilai->Huruf
-            for (int i = 0; i < tBoxInput.Text.Length; i++)
+            if (tBoxInput.Text.Length < 1)
             {
-                for(int j = 0; j < arrayhuruf.Length; j++)
+                MessageBox.Show("TextBox tidak boleh kosong");
+            }
+            else if (tBoxHurufAwal.Text.Length < 1)
+            {
+                MessageBox.Show("TextBox tidak boleh kosong");
+            }
+            else if (tBoxHurufKonversi.Text.Length < 1)
+            {
+                MessageBox.Show("TextBox tidak boleh kosong");
+            }
+            else
+            {
+                // Menghitung selisih konversi
+                for (int j = 0; j < arrayhuruf.Length; j++)
                 {
-                    if (char.IsLetter(tBoxInput.Text[i]))
+                    if (tBoxHurufAwal.Text.ToLower()[0].CompareTo(arrayhuruf[j]) == 0)
                     {
-                        if (tBoxInput.Text.ToLower()[i].CompareTo(arrayhuruf[j]) == 0)
+                        nilaiHurufAwal = j;
+                    }
+                    if (tBoxHurufKonversi.Text.ToLower()[0].CompareTo(arrayhuruf[j]) == 0)
+                    {
+                        nilaiHurufKonversi = j;
+                    }
+                    jarakKonversi = nilaiHurufKonversi - nilaiHurufAwal;
+                }
+
+                // Konversi Huruf->Nilai->Huruf
+                for (int i = 0; i < tBoxInput.Text.Length; i++)
+                {
+                    for (int j = 0; j < arrayhuruf.Length; j++)
+                    {
+                        if (char.IsLetter(tBoxInput.Text[i]))
                         {
-                            posisi = (26 + j + jarakKonversi) % 26;
-                            // konversiKeValue[i]= ((26+j+jarakKonversi)%26).ToString();
-                            konversiKeValue[i] = arrayhuruf[posisi].ToString();
+                            if (tBoxInput.Text.ToLower()[i].CompareTo(arrayhuruf[j]) == 0)
+                            {
+                                posisi = (26 + j + jarakKonversi) % 26;
+                                // konversiKeValue[i]= ((26+j+jarakKonversi)%26).ToString();
+                                konversiKeValue[i] = arrayhuruf[posisi].ToString();
+                            }
+                        }
+                        else
+                        {
+                            konversiKeValue[i] = tBoxInput.Text[i].ToString();
                         }
                     }
-                    else
-                    {
-                        konversiKeValue[i]= tBoxInput.Text[i].ToString();
-                    }
+                    labelOutput.Text += konversiKeValue[i].ToUpper();
                 }
-                labelOutput.Text += konversiKeValue[i].ToUpper();
             }
         }
 
